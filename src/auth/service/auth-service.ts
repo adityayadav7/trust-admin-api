@@ -11,7 +11,7 @@ export class AuthSerive{
         logger.info("Authenticating...")
         const userService = new UserService(UserModel,'admin', '1233', 'true');
         
-        const user: User =  await userService.findByUsername(loginUser.userName)
+        const user: any =  await userService.findByUsername(loginUser.userName)
         console.log("User in authenticate serive file "+user)
         const jwtUtils = new JwtTokenUtil(172800000,'$dmartCorporate%975*','dmartASL')
         const token : String = jwtUtils.generateToken(user)

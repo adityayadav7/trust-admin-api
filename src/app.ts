@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import logger from './common/logger';
 import { router } from './routers/authentication';
 import { initSetup, tokenValidation } from './auth/utils/utils';
+
 const app: Application = express();
 const port: number = 5002;
 app.use(cors());
@@ -29,6 +30,6 @@ app.listen(port, () => {
   logger.info(`Server is running on port ${port}`);
 });
 initSetup('admin', '1233', 'true')
-tokenValidation('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIkFETUlOIl0sImlhdCI6MTcxMTA4NTk2NiwiZXhwIjoxNzExMjU4NzY2LCJpc3MiOiJkbWFydEFTTCJ9.pW_BFpKcS75lEt48yw2ZBOPKY7Se7REcIdlbQNdv-LQ',
-'admin'
-)
+// tokenValidation('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIkFETUlOIl0sImlhdCI6MTcxMTA4NTk2NiwiZXhwIjoxNzExMjU4NzY2LCJpc3MiOiJkbWFydEFTTCJ9.pW_BFpKcS75lEt48yw2ZBOPKY7Se7REcIdlbQNdv-LQ',
+// 'admin'
+// )

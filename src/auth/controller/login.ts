@@ -6,8 +6,8 @@ import { UserService } from "../service/user-service";
 import { UserModel } from "../model/User";
 import { initSetup } from "../utils/utils";
 
-export const login =async (req: Request, res: Response) => {
-    const {userName, password} = req.body
+export const login = async (req: Request, res: Response) => {
+    const { userName, password } = req.body
     const loginUser: LoginUser = {
         userName: userName,
         password: password

@@ -54,23 +54,26 @@ class UserService {
     }
   }
 
-   async findByUsername(username: string):Promise<User> {
+   async findByUsername(username: string):Promise<User | null> {
     console.log(username)
     const result = await this.userRepository.find({ username: username })
     console.log(result)
     const doc = result[0]
     if(!doc){
       logger.warn(`No document found for the given username : ${username}`)
-      
+      return null
     }
-    return {
-      id: doc._id.toString(),
-      username: doc.username,
-      password: doc.password,
-      role: doc.role,
-      created: doc.created,
-      lastModified: doc.lastModified,
+    else{
+      return {
+        id: doc._id.toString(),
+        username: doc.username,
+        password: doc.password,
+        role: doc.role,
+        created: doc.created,
+        lastModified: doc.lastModified,
+      }
     }
+    
     
   }
 

@@ -1,0 +1,8 @@
+export enum Occupation {
+    EMPLOYED = 'EMPLOYED',
+    OWN_SMALL_BUSINESS = 'OWN_SMALL_BUSINESS',
+    HOMEMAKER = 'HOMEMAKER',
+    UNEMPLOYED = 'UNEMPLOYED',
+    OTHER = 'OTHER'
+  }
+  
