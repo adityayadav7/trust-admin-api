@@ -1,6 +1,7 @@
 import logger from "../../common/logger";
 import { UserDto } from "../../dto/UserDto";
 import { Roles } from "../../enums/Roles";
+import { ApplicantRepository } from "../../repository/applicantRepository";
 import { UserModel } from "../model/User";
 import { UserService } from "../service/user-service";
 import { JwtTokenUtil } from "./jwt";
@@ -33,3 +34,4 @@ export const tokenValidation = (token: string, userName: string) => {
         console.log(error)
     }
 }
+

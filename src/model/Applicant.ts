@@ -2,19 +2,19 @@ import mongoose, { Schema, Document } from 'mongoose';
 import { GrantApplication, GrantApplicationSchema } from './GrantApplication';
 
 interface Applicant extends Document {
-    aadharNumber: string;
-    grantApplication: [GrantApplication];
+    _id: string;
+    grantApplications: [GrantApplication];
     createdOn: Date
     modifiedOn: Date
 }
 
 const NewApplicantSchema = new Schema<Applicant>({
-    aadharNumber: { type: String, required: true },
-    grantApplication:[GrantApplicationSchema],
+    _id: { type: String, required: true },
+    grantApplications:[GrantApplicationSchema],
     createdOn: {type: Date, required: true},
     modifiedOn: {type: Date, required: false}
 });
 
-const NewApplicantModel = mongoose.model<Applicant>('NewApplicant', NewApplicantSchema);
+const NewApplicantModel = mongoose.model<Applicant>('NewApplicants', NewApplicantSchema);
 
 export { Applicant, NewApplicantModel };

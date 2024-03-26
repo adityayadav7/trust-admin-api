@@ -5,7 +5,8 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import logger from './common/logger';
 import { router } from './routers/authentication';
-import { initSetup, tokenValidation } from './auth/utils/utils';
+import {  initSetup, tokenValidation } from './auth/utils/utils';
+import { adminRouter } from './routers/admin';
 
 const app: Application = express();
 const port: number = 5002;
@@ -23,6 +24,7 @@ mongoose.connect('mongodb://localhost:27017', {
     logger.error('MongoDB connection error:', error);
   });
 app.use('/',router);
+app.use('/',adminRouter)
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello, School Admission App');
   });
