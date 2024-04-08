@@ -1,3 +1,5 @@
+import { Response } from "express";
+import { Constants } from "../../common/constants";
 import logger from "../../common/logger";
 import { UserDto } from "../../dto/UserDto";
 import { Roles } from "../../enums/Roles";
@@ -24,14 +26,34 @@ export const initSetup= async (adminUsername: string,adminPass: string,runPostCo
     }
 }
 
-export const tokenValidation = (token: string, userName: string) => {
+export const tokenValidation = (token: string, userName: any) => {
     try {
-        const jwtUtils = new JwtTokenUtil(172800000,'$dmartCorporate%975*','dmartASL')
+        const jwtUtils = new JwtTokenUtil(Constants.TOKEN_VALIDITY,Constants.TOKEN_SIGNING_KEY,Constants.TOKEN_ISSUER)
 
         const validToken = jwtUtils.validateToken(token, userName)
         console.log(validToken)
+        return validToken
     } catch (error) {
-        console.log(error)
+        logger.error(error.message)
+        throw new Error(error)
     }
 }
 
+export const getApplicant = async (aadhaarNumber: string,applicationNumber: string)=>{
+    try {
+        const applicantRepo = new ApplicantRepository()
+        const result = await applicantRepo.findByAadharNumberAndApplicationNumber(aadhaarNumber, applicationNumber)
+        console.log(result)
+    } catch (error) {
+        logger.error(error)
+        console.log(error)
+    }
+}
+export const accessDenied = (url: string, res: Response) => {
+    res.status(403).json({
+      statusCode: 403,
+      timestamp: new Date().toISOString(),
+      path: url,
+      message: 'access denied',
+    });
+}

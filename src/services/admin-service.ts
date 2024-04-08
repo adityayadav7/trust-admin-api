@@ -41,6 +41,7 @@ export class AdminService{
       private getFilteredApplicants(applicants: Applicant[]): ApplicantDTO[] {
         console.log("Inside getFilteredApplicants... ");
         const filteredApplicants: ApplicantDTO[] = [];
+        console.log(applicants)
         applicants.forEach(applicant => {
           const grantApplication: GrantApplication = applicant.grantApplications.sort((a, b) => b.createdOn.getTime() - a.createdOn.getTime())[0];
           
@@ -50,7 +51,7 @@ export class AdminService{
     
           const filteredApplicant: ApplicantDTO = {
             aadharNumber: applicant._id,
-            applicationNumber: grantApplication.applicationNumber,
+            applicationNumber: grantApplication._id,
             firstName: grantApplication.basicInfo.firstName,
             lastName: grantApplication.basicInfo.lastName,
             applicantMobile: grantApplication.basicInfo.applicantMobile,

@@ -1,3 +1,4 @@
+import { Constants } from "../../common/constants";
 import logger from "../../common/logger";
 import { LoginUser } from "../model/LoginUser";
 import { User, UserModel } from "../model/User";
@@ -9,7 +10,7 @@ export class AuthSerive{
     
     async authenticate(loginUser: LoginUser){
         logger.info("Authenticating...")
-        const userService = new UserService(UserModel,'admin', '1233', 'true');
+        const userService = new UserService(UserModel,Constants.USER_NAME, Constants.PASSWORD, Constants.RUN_POST_CONSTRUCT_SCRIPT);
         
         const user: any =  await userService.findByUsername(loginUser.userName)
         console.log("User in authenticate service file "+user)

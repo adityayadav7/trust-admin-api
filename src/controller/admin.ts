@@ -23,8 +23,9 @@ export const getAllApplicants = async (req:Request, res: Response) =>{
 }
 
 export const getApplicant = async (req:Request, res: Response)=>{
-    const aadhaarNumber = req.query.aadhaarNumber as String;
-    const applicationNumber =  req.query.applicationNumber as String;
+    const aadhaarNumber = req.query.aadharNumber as String;
+    const applicationNumber =  req.query.applicationNo as String;
+    console.log(aadhaarNumber, applicationNumber)
     try {
         const applicantRepo = new ApplicantRepository()
         const result = await applicantRepo.findByAadharNumberAndApplicationNumber(aadhaarNumber, applicationNumber)
