@@ -14,7 +14,7 @@ app.use(cors());
 // app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-mongoose.connect('mongodb://localhost:27017', {
+mongoose.connect('mongodb+srv://lalitkedia:9dqMg232siY6kVvX@cluster0.ahb1o5t.mongodb.net/grants?retryWrites=true&w=majority', {
 
 })
   .then(() => {

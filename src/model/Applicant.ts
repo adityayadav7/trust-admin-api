@@ -15,6 +15,6 @@ const NewApplicantSchema = new Schema<Applicant>({
     modifiedOn: {type: Date, required: false}
 });
 
-const NewApplicantModel = mongoose.model<Applicant>('NewApplicants', NewApplicantSchema);
+const NewApplicantModel = mongoose.model<Applicant>('Applicants', NewApplicantSchema);
 
 export { Applicant, NewApplicantModel };

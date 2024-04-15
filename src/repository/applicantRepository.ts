@@ -18,7 +18,7 @@ export class ApplicantRepository{
       async findByAadharNumberAndApplicationNumber(aadharNumber: any, applicationNumber: any): Promise<Applicant | null> {
         const applicant = await NewApplicantModel.findOne({
          "_id": aadharNumber,
-          'grantApplications.applicationNumber': applicationNumber
+          'grantApplications._id': applicationNumber
         });
         return applicant;
       }

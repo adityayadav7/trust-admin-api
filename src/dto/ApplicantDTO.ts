@@ -15,4 +15,5 @@ export class ApplicantDTO {
   paymentStartDate: Date;
   nextPaymentDate: Date;
   expiryDate: Date;
+  age : number
 }

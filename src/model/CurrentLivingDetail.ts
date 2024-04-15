@@ -1,12 +1,12 @@
-import { HouseType } from "../enum/HouseType";
-import { LivingWith } from "../enum/LivingWith";
+// import { HouseType } from "../enum/HouseType";
+// import { LivingWith } from "../enum/LivingWith";
 
 
 export interface CurrentLivingDetail {
-    withWhom: LivingWith;
+    //withWhom: LivingWith;
     isCurrentStayGte12Mnt: boolean;
     previousStayLocation?: string;
     previousStayMonths?: number;
-    typeOfHouse: HouseType;
+    //typeOfHouse: HouseType;
     withWhomOther?: string;
   }
