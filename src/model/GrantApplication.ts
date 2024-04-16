@@ -34,8 +34,8 @@ export interface GrantApplication extends Document {
 }
 
 export const GrantApplicationSchema = new Schema<GrantApplication>({
-  // applicationNumber: String,
   _id: { type: String, required: true },
+  // applicationNumber: String,
   applicantPhotoPath: String,
   basicInfo: {
     whatsAppNumber: String,

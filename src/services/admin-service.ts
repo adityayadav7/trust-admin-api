@@ -1,12 +1,15 @@
 import { application } from "express";
+import { Response } from "express";
 import { Constants } from "../common/constants";
+import logger from "../common/logger";
 import { ApplicantDTO } from "../dto/ApplicantDTO";
 import { ApplicationProcessRequest } from "../dto/ApplicationProcessRequest";
 import { ApplicationStatus } from "../enums/ApplicationStatus";
 import { RequestStatus } from "../enums/RequestStatus";
-import { Applicant } from "../model/Applicant";
+import { Applicant, ApplicantExcel } from "../model/Applicant";
 import { GrantApplication } from "../model/GrantApplication";
 import { ApplicantRepository } from "../repository/applicantRepository";
+import { ExcelGenerator } from "../utils/excelGenerator";
 
 export class AdminService {
   // constructor(private applicantRepo: ApplicantRepository) {}
@@ -94,5 +97,28 @@ export class AdminService {
       age: grantApplication.basicInfo.age
     };
     return applicantDTO
+  }
+
+  async excelApprovedApplicationsReport(){
+    logger.debug("Inside excelApprovedApplicationsReport ")
+
+    // const statuses: ApplicationStatus[] = [ApplicationStatus.APPROVED];
+    const applicantRepo = new ApplicantRepository()
+    const applicants: ApplicantExcel[] =  await applicantRepo.getAllApprovedApplications();
+    console.log(applicants)
+    const excelGenerator = new ExcelGenerator()
+    const buffer = await excelGenerator.applicantsToExcel(applicants)
+    return buffer
+  }
+  async excelAllApplicationsReport(){
+    logger.debug("Inside excelApprovedApplicationsReport ")
+
+    const statuses: ApplicationStatus[] = [ApplicationStatus.APPROVED, ApplicationStatus.CREATED, ApplicationStatus.REJECTED];
+    const applicantRepo = new ApplicantRepository()
+    const applicants: ApplicantExcel[] =  await applicantRepo.getAllApplications(statuses);
+    console.log(applicants)
+    const excelGenerator = new ExcelGenerator()
+    const buffer = await excelGenerator.applicantsToExcel(applicants)
+    return buffer
   }
 }

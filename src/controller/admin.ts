@@ -58,5 +58,31 @@ export const processApplication = async (req: Request, res: Response) => {
     } catch (error){
         res.sendStatus(500).json(error)
     }
+}
     
+function setExcelHeaders(res: Response) {
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    );
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=' + 'application.xlsx',
+    );
+}
+
+export const excelApprovedApplicationsReport = async (req:Request, res: Response)=>{
+    logger.info('Generating Excel sheet for approved applications report');
+    const adminService=new AdminService();
+    const bufferData = await adminService.excelApprovedApplicationsReport();
+    setExcelHeaders(res)
+    res.send(bufferData);
+}
+
+export const excelAllApplicationsReport=async (req: Request, res:Response)=> {
+    logger.info('Generating Excel sheet for all the applications report');
+    const adminService=new AdminService();
+    const bufferData = await adminService.excelAllApplicationsReport();
+    setExcelHeaders(res)
+    res.send(bufferData);
 }

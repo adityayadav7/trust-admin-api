@@ -7,14 +7,18 @@ interface Applicant extends Document {
     createdOn: Date
     modifiedOn: Date
 }
-
+interface ApplicantExcel extends Document {
+    _id: string;
+    grantApplications: GrantApplication;
+    createdOn: Date
+    modifiedOn: Date
+}
 const NewApplicantSchema = new Schema<Applicant>({
     _id: { type: String, required: true },
     grantApplications:[GrantApplicationSchema],
     createdOn: {type: Date, required: true},
     modifiedOn: {type: Date, required: false}
 });
-
 const NewApplicantModel = mongoose.model<Applicant>('Applicants', NewApplicantSchema);
 
-export { Applicant, NewApplicantModel };
+export { Applicant, NewApplicantModel, ApplicantExcel };

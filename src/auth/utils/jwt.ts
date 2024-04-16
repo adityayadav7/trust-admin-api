@@ -49,7 +49,7 @@ class JwtTokenUtil {
     private doGenerateToken(subject: string, roles: Roles[]): string {
         const claims: any = { sub: subject };
         if (roles && roles.length > 0) {
-            claims.roles = roles.map(role => role.toString());
+            claims.roles = roles.map(role =>({ authority : role.toString()}))
         }
 
         return jwt.sign(claims, this.tokenSigningKey, {

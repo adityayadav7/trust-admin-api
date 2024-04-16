@@ -1,6 +1,5 @@
-// import { HouseType } from "../enum/HouseType";
-// import { LivingWith } from "../enum/LivingWith";
-
+import { HouseType } from "../enums/HouseType";
+import { LivingWith } from "../enums/LivingWith";
 
 export interface CurrentLivingDetail {
     //withWhom: LivingWith;

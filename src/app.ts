@@ -5,16 +5,18 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import logger from './common/logger';
 import { router } from './routers/authentication';
-import {  initSetup, tokenValidation } from './auth/utils/utils';
+import { getApplicant, initSetup, tokenValidation } from './auth/utils/utils';
 import { adminRouter } from './routers/admin';
+import { Constants } from './common/constants';
 
 const app: Application = express();
-const port: number = 5002;
+const port: any = Constants.PORT;
 app.use(cors());
 // app.use(express.json());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-mongoose.connect('mongodb+srv://lalitkedia:9dqMg232siY6kVvX@cluster0.ahb1o5t.mongodb.net/grants?retryWrites=true&w=majority', {
+mongoose.connect(Constants.DB_URL, {
 
 })
   .then(() => {
@@ -31,7 +33,8 @@ app.get('/', (req: Request, res: Response) => {
 app.listen(port, () => {
   logger.info(`Server is running on port ${port}`);
 });
-initSetup('admin', '1233', 'true')
+initSetup(Constants.USER_NAME, Constants.PASSWORD, Constants.RUN_POST_CONSTRUCT_SCRIPT)
 // tokenValidation('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIkFETUlOIl0sImlhdCI6MTcxMTA4NTk2NiwiZXhwIjoxNzExMjU4NzY2LCJpc3MiOiJkbWFydEFTTCJ9.pW_BFpKcS75lEt48yw2ZBOPKY7Se7REcIdlbQNdv-LQ',
 // 'admin'
 // )
+// getApplicant('973333133334','24/03/2024323155')

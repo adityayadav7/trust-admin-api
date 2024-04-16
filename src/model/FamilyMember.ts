@@ -1,5 +1,4 @@
-// import { Gender } from "../enum/Gender";
-
+import { Gender } from "../enums/Gender";
 
 export interface FamilyMember {
   memberName: string;
