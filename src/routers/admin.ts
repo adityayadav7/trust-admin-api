@@ -1,9 +1,27 @@
-import express from 'express';
-import { getAllApplicants, getApplicant } from '../controller/admin';
-import { authenticateToken } from '../middleware/jwtAuthentication';
+import express from "express";
+import {
+    excelAllApplicationsReport,
+  excelApprovedApplicationsReport,
+  getAllApplicants,
+  getApplicant,
+} from "../controller/admin";
+import { authenticateToken } from "../middleware/jwtAuthentication";
 const adminRouter = express.Router();
 
-adminRouter.get('/grants-admin/v1', authenticateToken, getAllApplicants)
-adminRouter.get('/grants-admin/application/v1',authenticateToken, getApplicant)
-
+adminRouter.get("/grants-admin/v1", authenticateToken, getAllApplicants);
+adminRouter.get(
+  "/grants-admin/application/v1",
+  authenticateToken,
+  getApplicant
+);
+adminRouter.get(
+  "/grants-admin/v1/download/approved",
+  authenticateToken,
+  excelApprovedApplicationsReport
+);
+adminRouter.get(
+    "/grants-admin/v1/download/all",
+    authenticateToken,
+    excelAllApplicationsReport
+  );
 export { adminRouter };
