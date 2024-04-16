@@ -47,10 +47,11 @@ export class AdminService {
     }
     let grantApplication = applicant.grantApplications.find( app => app._id === processRequest.applicationNumber);
     grantApplication.applicationStatus = processRequest.operation;
-    grantApplication.approvedBy = processRequest.approvedBy;
-    grantApplication.approvedAmount = processRequest.approvedAmount;
-    grantApplication.paymentStartDate =processRequest.paymentStartDate.toString();
-
+    if(processRequest.operation == "APPROVED"){
+      grantApplication.approvedBy = processRequest.approvedBy;
+      grantApplication.approvedAmount = processRequest.approvedAmount;
+      grantApplication.paymentStartDate =processRequest.paymentStartDate.toString();
+    }
 
     await applicant.save();
     return this.convertApplicationToDTO(applicant, applicant.grantApplications[0]);
