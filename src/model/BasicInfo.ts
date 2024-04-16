@@ -7,7 +7,7 @@ import { CurrentLivingDetail } from "./CurrentLivingDetail";
 
 export interface BasicInfo {
   whatsAppNumber: string;
-  //currentOccupation: Occupation;
+  currentOccupation: Occupation;
   otherCurrentOccupation: string;
   facilitatorMobile: string;
   firstName: string;
@@ -18,8 +18,8 @@ export interface BasicInfo {
   age: number;
   dateOfBirth: Date;
   education: string;
-  // maritalStatus: MaritalStatus;
-  // languagePreferences?: ApplicantLanguage[];
+  maritalStatus: MaritalStatus;
+  languagePreferences?: ApplicantLanguage[];
   otherLanguage: string;
   addressDetail: AddressDetail;
   currentLivingDetail: CurrentLivingDetail;
