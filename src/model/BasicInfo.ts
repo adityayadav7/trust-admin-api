@@ -1,6 +1,6 @@
 
 import { ApplicantLanguage } from "../enums/ApplicantLanguage";
-import { MaritalStatus } from "../enums/MaritialStatus";
+import { MaritalStatus } from "../enums/MaritalStatus";
 import { Occupation } from "../enums/Occupation";
 import { AddressDetail } from "./AddressDetail";
 import { CurrentLivingDetail } from "./CurrentLivingDetail";

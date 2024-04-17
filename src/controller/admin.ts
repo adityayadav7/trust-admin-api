@@ -4,10 +4,13 @@ import { AdminService } from "../services/admin-service";
 import { NewApplicantModel } from "../model/Applicant";
 import { RequestStatus } from "../enums/RequestStatus";
 import { ApplicantRepository } from "../repository/applicantRepository";
+import { ApplicationProcessRequest } from "../dto/ApplicationProcessRequest";
+import { rmSync } from "fs";
 
-export const getAllApplicants = async (req:Request, res: Response) =>{
-    const { pageNumber, pageSize} = req.query
-    const status : RequestStatus = req.query?.[`status`] as RequestStatus || undefined
+
+export const getAllApplicants = async (req: Request, res: Response) => {
+    const { pageNumber, pageSize } = req.query
+    const status: RequestStatus = req.query?.[`status`] as RequestStatus || undefined
     // const pageNumber: any = req.query.pageNumber
     logger.info('Get all applications...')
     try {
@@ -22,10 +25,9 @@ export const getAllApplicants = async (req:Request, res: Response) =>{
     }
 }
 
-export const getApplicant = async (req:Request, res: Response)=>{
+export const getApplicant = async (req: Request, res: Response) => {
     const aadhaarNumber = req.query.aadharNumber as String;
-    const applicationNumber =  req.query.applicationNo as String;
-    console.log(aadhaarNumber, applicationNumber)
+    const applicationNumber = req.query.applicationNo as String;
     try {
         const applicantRepo = new ApplicantRepository()
         const result = await applicantRepo.findByAadharNumberAndApplicationNumber(aadhaarNumber, applicationNumber)
@@ -37,6 +39,27 @@ export const getApplicant = async (req:Request, res: Response)=>{
         res.status(500).send(error);
     }
 }
+
+export const processApplication = async (req: Request, res: Response) => {
+    const {aadharNumber, applicationNumber, approvedAmount, approvedBy, operation, paymentStartDate}  = req.body;
+    const applicationProcessRequest = new ApplicationProcessRequest(aadharNumber, applicationNumber, operation, approvedBy, approvedAmount, paymentStartDate);
+    try {
+        applicationProcessRequest.validate()
+    } catch(error) {
+        res.status(400).send(error)
+        return;
+    }
+    // const applicationProcessRequest : ApplicationProcessRequest= {aadharNumber,applicationNumber,approvedAmount,applicationStatus,approvedBy};
+    try{
+        const adminService = new AdminService()
+        const result = await adminService.processApplication(applicationProcessRequest);
+        console.log(result);
+        res.status(200).json(result);
+    } catch (error){
+        res.sendStatus(500).json(error)
+    }
+}
+    
 function setExcelHeaders(res: Response) {
     res.setHeader(
       'Content-Type',
@@ -46,7 +69,8 @@ function setExcelHeaders(res: Response) {
       'Content-Disposition',
       'attachment; filename=' + 'application.xlsx',
     );
-  }
+}
+
 export const excelApprovedApplicationsReport = async (req:Request, res: Response)=>{
     logger.info('Generating Excel sheet for approved applications report');
     const adminService=new AdminService();

@@ -1,7 +1,8 @@
 import express from "express";
 import {
-    excelAllApplicationsReport,
+  excelAllApplicationsReport,
   excelApprovedApplicationsReport,
+  processApplication,
   getAllApplicants,
   getApplicant,
 } from "../controller/admin";
@@ -20,8 +21,11 @@ adminRouter.get(
   excelApprovedApplicationsReport
 );
 adminRouter.get(
-    "/grants-admin/v1/download/all",
-    authenticateToken,
-    excelAllApplicationsReport
-  );
+  "/grants-admin/v1/download/all",
+  authenticateToken,
+  excelAllApplicationsReport
+);
+
+adminRouter.put('/grants-admin/v1', authenticateToken, processApplication)
+
 export { adminRouter };

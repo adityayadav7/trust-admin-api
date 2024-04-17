@@ -9,7 +9,7 @@ import { financialAssistance } from "./FinancialAssistance";
 import { bankDetailSchema } from "./BankDetail";
 import { ApplicationStatus } from "../enums/ApplicationStatus";
 import { Occupation } from "../enums/Occupation";
-import { MaritalStatus } from "../enums/MaritialStatus";
+import { MaritalStatus } from "../enums/MaritalStatus";
 import { LivingWith } from "../enums/LivingWith";
 import { HouseType } from "../enums/HouseType";
 import { Gender } from "../enums/Gender";
