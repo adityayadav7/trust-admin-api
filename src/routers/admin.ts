@@ -5,6 +5,7 @@ import {
   processApplication,
   getAllApplicants,
   getApplicant,
+  excelOneApplicationsReport,
 } from "../controller/admin";
 import { authenticateToken } from "../middleware/jwtAuthentication";
 const adminRouter = express.Router();
@@ -15,6 +16,11 @@ adminRouter.get(
   authenticateToken,
   getApplicant
 );
+adminRouter.get(
+    "/grants-admin/v1/download/one",
+    authenticateToken,
+    excelOneApplicationsReport
+  );
 adminRouter.get(
   "/grants-admin/v1/download/approved",
   authenticateToken,

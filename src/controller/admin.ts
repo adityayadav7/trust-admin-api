@@ -71,6 +71,17 @@ function setExcelHeaders(res: Response) {
     );
 }
 
+export const excelOneApplicationsReport = async (req: Request, res: Response) => {
+    const aadhaarNumber = req.query.aadharNumber as String;
+    const status = req.query.status as String;
+    console.log(aadhaarNumber, status)
+    logger.info('Generating Excel sheet for single applications report');
+    const adminService = new AdminService();
+    const bufferData = await adminService.excelOneApplicationsReport(aadhaarNumber, status);
+    setExcelHeaders(res)
+    res.send(bufferData);
+}
+
 export const excelApprovedApplicationsReport = async (req:Request, res: Response)=>{
     logger.info('Generating Excel sheet for approved applications report');
     const adminService=new AdminService();
