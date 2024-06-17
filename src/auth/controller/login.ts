@@ -2,9 +2,6 @@ import { Request, Response } from "express";
 import { LoginUser } from "../model/LoginUser";
 import logger from "../../common/logger";
 import { AuthSerive } from "../service/auth-service";
-import { UserService } from "../service/user-service";
-import { UserModel } from "../model/User";
-import { initSetup } from "../utils/utils";
 
 export const login = async (req: Request, res: Response) => {
     const { userName, password } = req.body

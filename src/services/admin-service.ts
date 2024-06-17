@@ -157,7 +157,6 @@ export class AdminService {
   async excelApprovedApplicationsReport() {
     logger.debug("Inside excelApprovedApplicationsReport ");
 
-    // const statuses: ApplicationStatus[] = [ApplicationStatus.APPROVED];
     const applicantRepo = new ApplicantRepository();
     const applicants: ApplicantExcel[] =
       await applicantRepo.getAllApprovedApplications();
@@ -183,4 +182,6 @@ export class AdminService {
     const buffer = await excelGenerator.applicantsToExcel(applicants);
     return buffer;
   }
+
+  
 }

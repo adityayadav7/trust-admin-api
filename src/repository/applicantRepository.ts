@@ -36,27 +36,22 @@ export class ApplicantRepository {
       _id: aadharNumber,
       "grantApplications._id": applicationNumber,
     });
-    //   const applicant = await NewApplicantModel.findOne({
-    //     "_id": aadharNumber,
-    //     "grantApplications": {
-    //         $elemMatch: {
-    //             "applicationNumber": applicationNumber
-    //         }
-    //     }
-    // });
     return applicant;
   }
-  async getApprovedApplicationsById(id: string, statuses: any): Promise<ApplicantExcel[]> {
+  async getApprovedApplicationsById(
+    id: string,
+    statuses: any
+  ): Promise<ApplicantExcel[]> {
     const approvedApplications = await NewApplicantModel.aggregate([
-        { $match: { _id: id } },
-        { $unwind: "$grantApplications" }, // Unwind the grantApplications array
-        { $match: { "grantApplications.applicationStatus": statuses } }, 
-        { $sort: { "grantApplications.createdOn": -1 } }, // Sort by createdOn in descending order
-        { $limit: 1 },
+      { $match: { _id: id } },
+      { $unwind: "$grantApplications" },
+      { $match: { "grantApplications.applicationStatus": statuses } },
+      { $sort: { "grantApplications.createdOn": -1 } },
+      { $limit: 1 },
     ]);
 
-    return approvedApplications; // Returns all approved applications for the specified applicant ID
-}
+    return approvedApplications;
+  }
   async getAllApprovedApplications(): Promise<ApplicantExcel[]> {
     const applicants = await NewApplicantModel.aggregate([
       { $unwind: "$grantApplications" },
@@ -67,8 +62,22 @@ export class ApplicantRepository {
   async getAllApplications(statuses): Promise<ApplicantExcel[]> {
     const applicants = await NewApplicantModel.aggregate([
       { $unwind: "$grantApplications" },
-      { $match: { "grantApplications.applicationStatus":  { $in: statuses }} },
+      { $match: { "grantApplications.applicationStatus": { $in: statuses } } },
     ]);
     return applicants;
+  }
+  async updateTermination(
+    aadharNumber: any,
+    applicationNumber: any
+  ): Promise<Applicant | any> {
+    const applicant = await NewApplicantModel.findOneAndUpdate(
+      {
+        _id: aadharNumber,
+        "grantApplications._id": applicationNumber,
+      },
+      { $set: { "grantApplications.$.terminated": true } },
+      { new: true, upsert: true } 
+    );
+    return applicant;
   }
 }

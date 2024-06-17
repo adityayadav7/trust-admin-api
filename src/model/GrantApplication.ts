@@ -26,6 +26,7 @@ export interface GrantApplication extends Document {
   aadharPhotoPath: string;
   additionalDocPath: string;
   applicationStatus: ApplicationStatus;
+  terminated?: boolean;
   createdOn: Date;
   modifiedOn?: Date;
   cancelledChequePhotoPath?: string;
@@ -139,6 +140,7 @@ export const GrantApplicationSchema = new Schema<GrantApplication>({
     type: String,
     enum: Object.values(ApplicationStatus),
   },
+  terminated: Boolean,
   createdOn: Date,
   modifiedOn: Date,
   cancelledChequePhotoPath: String,
